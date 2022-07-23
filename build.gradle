@@ -1,0 +1,49 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.AndrewAlbizati'
+version '1.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url = 'https://hub.spigotmc.org/nexus/content/repositories/snapshots/'
+        content {
+            includeGroup 'org.bukkit'
+            includeGroup 'org.spigotmc'
+        }
+    }
+
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/snapshots'
+    }
+    maven {
+        url = 'https://oss.sonatype.org/content/repositories/central'
+    }
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.19-R0.1-SNAPSHOT'
+    implementation group: 'com.googlecode.json-simple', name: 'json-simple', version: '1.1.1'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+rootProject.tasks.named("jar") {
+    duplicatesStrategy = 'include'
+}
+
+jar {
+    doFirst {
+        from {
+            configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+        }
+    }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
+}

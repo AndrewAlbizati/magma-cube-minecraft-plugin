@@ -1,0 +1,10 @@
+main: com.github.AndrewAlbizati.MagmaCube
+name: MagmaCubePlugin
+version: 1.0.0
+description: If a Magma Cube sniffs you, it has the potential to be tamed.
+author: Budman200_MC
+
+commands:
+  magma:
+    description: This toggles the Magma Cube taming ability.
+    usage: /magma
